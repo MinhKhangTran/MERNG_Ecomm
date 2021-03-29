@@ -11,6 +11,7 @@ import {
 import { User } from "./schemas/User";
 import { Product } from "./schemas/Product";
 import { ProductPhoto } from "./schemas/ProductPhoto";
+import { Role } from "./schemas/Role";
 
 // database
 const dbURL = process.env.MONGO_URI;
@@ -56,6 +57,7 @@ export default withAuth(
       User,
       Product,
       ProductPhoto,
+      Role,
     }),
     //falls man manuel resolvers machen muss
     // extendGraphqlSchema,
