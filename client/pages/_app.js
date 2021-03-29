@@ -1,18 +1,29 @@
+//Apollo Stuff
+import { ApolloProvider } from "@apollo/client";
+import withData from "../lib/withData";
+//Chakra Stuff
 import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
 import { theme } from "../styles";
+import Layout from "../components/Layout";
 
-function MyApp({ Component, pageProps }) {
+//Nprogress
+
+function MyApp({ Component, pageProps, apollo }) {
   return (
-    <ChakraProvider resetCSS theme={theme}>
-      <ColorModeProvider
-        options={{
-          useSystemColorMode: true,
-        }}
-      >
-        <Component {...pageProps} />
-      </ColorModeProvider>
-    </ChakraProvider>
+    <ApolloProvider client={apollo}>
+      <ChakraProvider resetCSS theme={theme}>
+        <ColorModeProvider
+          options={{
+            useSystemColorMode: true,
+          }}
+        >
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ColorModeProvider>
+      </ChakraProvider>
+    </ApolloProvider>
   );
 }
 
-export default MyApp;
+export default withData(MyApp);

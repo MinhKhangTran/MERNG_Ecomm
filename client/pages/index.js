@@ -1,5 +1,6 @@
 import { Box, Heading, Text } from "@chakra-ui/layout";
 import Head from "next/head";
+import Products from "../components/Products";
 
 export default function Home() {
   return (
@@ -7,8 +8,7 @@ export default function Home() {
       <Head>
         <title>Gönner shop V2</title>
       </Head>
-      <Heading bg="blue.400">New Tegomi</Heading>
-      <Text bg="blue.400">Roboto</Text>
+      <Products />
     </Box>
   );
 }
