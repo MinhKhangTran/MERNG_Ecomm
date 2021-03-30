@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   Alert,
   AlertDescription,
@@ -40,6 +40,7 @@ const SingleProduct = ({ id }) => {
   const { loading, error, data } = useQuery(FETCH_SINGLE_PRODUCT_QUERY, {
     variables: { id },
   });
+
   if (error)
     return (
       <Alert status="error">
@@ -56,7 +57,11 @@ const SingleProduct = ({ id }) => {
       <Head>
         <title>Gönner Shop | {data.Product.name}</title>
       </Head>
-      <Button colorScheme="blue" variant="solid" onClick={() => router.back()}>
+      <Button
+        colorScheme="blue"
+        variant="solid"
+        onClick={() => router.push("/")}
+      >
         🔙 Zurück zu den Produckten
       </Button>
       <Heading>{data.Product.name}</Heading>

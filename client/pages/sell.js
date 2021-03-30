@@ -15,6 +15,7 @@ import gql from "graphql-tag";
 import { useState } from "react";
 import * as Yup from "yup";
 import Router from "next/router";
+import { FETCH_PRODUCTS_QUERY } from "../components/Products";
 
 const CREATE_PRODUCT_MUTATION = gql`
   mutation CREATE_PRODUCT_MUTATION(
@@ -77,6 +78,7 @@ const SellPage = () => {
         price: formik.values.price,
         photo: bild,
       },
+      refetchQueries: [{ query: FETCH_PRODUCTS_QUERY }],
     }
   );
 

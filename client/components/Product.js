@@ -1,13 +1,46 @@
-import { Badge, Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Button,
+  ButtonGroup,
+  Flex,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import formatMoney from "../lib/formatMoney";
 import Link from "next/link";
+import { useMutation } from "@apollo/client";
+import gql from "graphql-tag";
 
+const DELETE_PRODUCT_MUTATION = gql`
+  mutation DELETE_PRODUCT_MUTATION($id: ID!) {
+    deleteProduct(id: $id) {
+      id
+      name
+    }
+  }
+`;
+
+//evicting/update after deleting
+
+function update(cache, payload) {
+  // console.log(payload);
+  // console.log("running the update function after delete");
+  cache.evict(cache.identify(payload.data.deleteProduct));
+}
 const Product = ({ name, photo, description, price, id }) => {
+  const [
+    deleteProduct,
+    { loading, error },
+  ] = useMutation(DELETE_PRODUCT_MUTATION, { variables: { id }, update });
   return (
-    <Box
+    <Flex
+      direction="column"
       position="relative"
       border="2px"
       borderRadius="lg"
+      justifyContent="space-between"
       _hover={{ boxShadow: "lg" }}
     >
       <Heading
@@ -22,15 +55,6 @@ const Product = ({ name, photo, description, price, id }) => {
       >
         <Link href={`/product/${id}`}>{name}</Link>
       </Heading>
-      {/* <Flex justify="center" align="center" direction="column"> */}
-      <Image
-        borderTopRadius="lg"
-        objectFit="cover"
-        alt={name}
-        src={photo.photo?.publicUrlTransformed}
-      ></Image>
-
-      {/* </Flex> */}
       <Box
         position="absolute"
         bg="blue.500"
@@ -45,10 +69,39 @@ const Product = ({ name, photo, description, price, id }) => {
       >
         <Heading fontSize="4xl">{formatMoney(price)}</Heading>
       </Box>
-      <Text fontSize="lg" my={4} px={4}>
+      {/* <Flex justify="center" align="center" direction="column"> */}
+
+      <Image
+        borderTopRadius="lg"
+        objectFit="cover"
+        alt={name}
+        src={photo.photo?.publicUrlTransformed}
+      ></Image>
+
+      {/* </Flex> */}
+
+      <Text justifyItems="normal" fontSize="lg" my={4} px={4}>
         {description}
       </Text>
-    </Box>
+      <ButtonGroup borderTop="2px" justifyItems="end">
+        <Button borderRadius="none">Ändern ✍️</Button>
+        <Button borderLeft="2px" borderRadius="none">
+          In den Warenkorb 🛍
+        </Button>
+        <Button
+          isLoading={loading}
+          borderLeft="2px"
+          borderRadius="none"
+          onClick={() => {
+            if (confirm("Bist du dir sicher?")) {
+              deleteProduct().catch((err) => alert(err.message));
+            }
+          }}
+        >
+          Löschen 🙅‍♂️
+        </Button>
+      </ButtonGroup>
+    </Flex>
   );
 };
 

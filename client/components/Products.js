@@ -14,7 +14,7 @@ import { useQuery } from "@apollo/client";
 import gql from "graphql-tag";
 import Product from "./Product";
 
-const FETCH_PRODUCTS_QUERY = gql`
+export const FETCH_PRODUCTS_QUERY = gql`
   query {
     allProducts {
       id
