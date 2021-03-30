@@ -24,7 +24,7 @@ export const User = list({
     name: text({ isRequired: true }),
     email: text({ isRequired: true, isUnique: true }),
     password: password(),
-    products: relationship({ ref: "Product.user", many: true }),
+    // products: relationship({ ref: "Product.user", many: true }),
     role: relationship({ ref: "Role.assignedTo" }),
   },
 });

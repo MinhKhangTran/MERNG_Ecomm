@@ -19,13 +19,13 @@ export const Product = list({
     }),
     price: integer(),
     //relationship many-to-one zu person
-    user: relationship({
-      ref: "User.products",
-      //die person die angemeldet ist ist der user => connect to id of user
-      defaultValue: ({ context }) => ({
-        connect: { id: context.session.itemId },
-      }),
-    }),
+    // user: relationship({
+    //   ref: "User.products",
+    //   //die person die angemeldet ist ist der user => connect to id of user
+    //   defaultValue: ({ context }) => ({
+    //     connect: { id: context.session.itemId },
+    //   }),
+    // }),
     //relationship one-to-one zu photo
     photo: relationship({
       ref: "ProductPhoto.product",
