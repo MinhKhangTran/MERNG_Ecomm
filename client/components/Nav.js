@@ -71,7 +71,7 @@ const Nav = () => {
         <HoverBox>
           <Link href="/">Produkte</Link>
           <Link href="/sell">Verkaufen</Link>
-          <Link href="/login">Login</Link>
+          {/* <Link href="/login">Login</Link> */}
         </HoverBox>
       </Flex>
     </Box>

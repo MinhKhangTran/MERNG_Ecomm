@@ -19,7 +19,7 @@ import formatMoney from "../lib/formatMoney";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const FETCH_SINGLE_PRODUCT_QUERY = gql`
+export const FETCH_SINGLE_PRODUCT_QUERY = gql`
   query FETCH_SINGLE_PRODUCT_QUERY($id: ID!) {
     Product(where: { id: $id }) {
       id
@@ -62,7 +62,7 @@ const SingleProduct = ({ id }) => {
         variant="solid"
         onClick={() => router.push("/")}
       >
-        🔙 Zurück zu den Produckten
+        🔙 Zurück zu den Produkten
       </Button>
       <Heading>{data.Product.name}</Heading>
       <Grid

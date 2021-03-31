@@ -84,10 +84,33 @@ const Product = ({ name, photo, description, price, id }) => {
         {description}
       </Text>
       <ButtonGroup borderTop="2px" justifyItems="end">
-        <Button borderRadius="none">Ändern ✍️</Button>
-        <Button borderLeft="2px" borderRadius="none">
-          In den Warenkorb 🛍
+        <Button borderRadius="none" borderRight="2px">
+          <Link
+            href={{
+              pathname: "/update",
+              query: {
+                id: id,
+              },
+            }}
+          >
+            Ändern ✍️
+          </Link>
         </Button>
+        <button
+          style={{ fontWeight: "bold" }}
+          className="snipcart-add-item"
+          data-item-id={id}
+          data-item-price={price / 100}
+          data-item-url="/"
+          data-item-description={description}
+          data-item-image={photo.photo?.publicUrlTransformed}
+          data-item-name={name}
+        >
+          In den Warenkorb 🛍
+        </button>
+        {/* <Button borderLeft="2px" borderRadius="none">
+          In den Warenkorb 🛍
+        </Button> */}
         <Button
           isLoading={loading}
           borderLeft="2px"
